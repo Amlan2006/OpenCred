@@ -64,7 +64,7 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
-# You should have WSL and Foundr Installed In Your System
+# You should have WSL and Foundry Installed In Your System
 # Step By Step Guide
 1. Clone the repository
 2. Start your terminal
