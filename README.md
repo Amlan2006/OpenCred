@@ -64,3 +64,22 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
+# You should have WSL and Foundr Installed In Your System
+# Step By Step Guide
+1. Clone the repository
+2. Start your terminal
+3. Then 
+```bash
+$ cd OpenCred
+```
+3. Then:
+```bash
+$ anvil
+```
+4. Choose a private key
+5. Import the account with the private key on metamask
+6. Deploy the contract
+7. Copy the deployed contract address
+8. Now you are the owner of the contract
+9. Connect the web3 app with your imported account on metamask
+10. Done
