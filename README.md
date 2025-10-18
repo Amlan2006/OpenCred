@@ -7,7 +7,7 @@ This ensures that every certificate is **tamper-proof**, **verifiable**, and **a
 Employers can register themselves on-chain, issue certificates to learners, and anyone can verify the validity of a certificate using its unique ID.
 
 
-![opencred](Screenshot 2025-10-18 123931.png)
+![opencred](Screenshot%202025-10-18%20123931.png))
 
 ---
 
