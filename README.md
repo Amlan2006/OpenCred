@@ -1,85 +1,146 @@
-## Foundry
+# 🧾 Certification Smart Contract
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Overview
+The **Certification** smart contract enables employers to issue and verify certificates securely on the blockchain.  
+Only the **owner** of the contract can register new employers, and only registered employers can issue certificates — ensuring authenticity and preventing forgery.
 
-Foundry consists of:
+---
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## ⚙️ Features
+- 🔒 **Owner-based access control** — Only the deployer can register employers.  
+- 🧑‍💼 **Employer registration** — Add employers using a unique ID and name.  
+- 🎓 **Certificate issuance** — Registered employers can issue certificates to individuals.  
+- 🔍 **Certificate verification** — Anyone can verify the validity of a certificate.  
+- 📜 **Certificate retrieval** — Fetch details such as the holder’s name, course, and issue date.
 
-## Documentation
+---
 
-https://book.getfoundry.sh/
+## 🧩 Smart Contract Details
+- **Solidity Version:** `0.8.24`  
+- **License:** `MIT`  
 
-## Usage
+---
 
-### Build
+## 📦 Data Structures
 
-```shell
-$ forge build
-```
+### `struct infoCertificate`
+| Field | Type | Description |
+|--------|------|-------------|
+| `name` | `string` | Name of the certificate holder |
+| `course` | `string` | Name of the course or program |
+| `dateOfIssue` | `string` | Date of certificate issuance |
+| `certificationId` | `uint256` | Unique certificate identifier |
 
-### Test
+---
 
-```shell
-$ forge test
-```
+## 🔐 Modifiers
 
-### Format
+| Modifier | Description |
+|-----------|-------------|
+| `onlyOwner` | Restricts access to the contract owner |
+| `onlyEmployer(uint256 employerId)` | Restricts access to registered employers |
 
-```shell
-$ forge fmt
-```
+---
 
-### Gas Snapshots
+## 🧠 Functions
 
-```shell
-$ forge snapshot
-```
+### `constructor()`
+Initializes the contract and sets the deployer as the **owner**.
 
-### Anvil
+---
 
-```shell
-$ anvil
-```
+### `registerEmployer(uint256 employerId, string memory name)`
+Registers a new employer.  
+**Access:** `onlyOwner`
 
-### Deploy
+**Parameters:**
+- `employerId`: Unique ID for the employer  
+- `name`: Employer’s name  
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+---
 
-### Cast
+### `addCertificate(uint256 certificationId, uint256 employerId, string memory name, string memory course, string memory dateOfIssue)`
+Issues a new certificate to an individual.  
+**Access:** `onlyEmployer(employerId)`
 
-```shell
-$ cast <subcommand>
-```
+**Parameters:**
+- `certificationId`: Unique ID for the certificate  
+- `employerId`: ID of the issuing employer  
+- `name`: Recipient’s name  
+- `course`: Course or program name  
+- `dateOfIssue`: Date of issuance  
 
-### Help
+---
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
-# You should have WSL and Foundry Installed In Your System
-# Step By Step Guide
-1. Clone the repository
-2. Start your terminal
-3. Then 
-```bash
-$ cd OpenCred
-```
-3. Then:
-```bash
-$ anvil
-```
-4. Choose a private key
-5. Import the account with the private key on metamask
-6. Deploy the contract
-7. Copy the deployed contract address
-8. Now you are the owner of the contract
-9. Connect the web3 app with your imported account on metamask
-10. Done
+### `checkCertificate(uint256 certificationId) → bool`
+Checks if a certificate exists.  
+**Returns:** `true` if the certificate exists, otherwise `false`.
+
+---
+
+### `getCertificate(uint256 certificationId) → (string name, string course, string dateOfIssue)`
+Retrieves details of a certificate.  
+**Returns:**  
+- `name` — Certificate holder’s name  
+- `course` — Course title  
+- `dateOfIssue` — Date of issuance  
+
+---
+
+## ⚠️ Custom Errors
+
+| Error | Description |
+|--------|-------------|
+| `NotEmployer()` | Thrown when an unregistered employer attempts restricted actions |
+| `notOwner()` | Thrown when a non-owner attempts restricted actions |
+
+---
+
+## 🚀 Example Workflow
+
+1. **Deploy the contract.**  
+   The deployer becomes the owner.
+
+2. **Register an employer:**
+   ```solidity
+   registerEmployer(1, "OpenAI Academy");
+   ```
+
+3. **Employer issues a certificate:**
+   ```solidity
+   addCertificate(1001, 1, "Alice", "Blockchain Fundamentals", "2025-10-18");
+   ```
+
+4. **Verify a certificate:**
+   ```solidity
+   checkCertificate(1001); // returns true
+   ```
+
+5. **Fetch certificate details:**
+   ```solidity
+   getCertificate(1001);
+   // returns ("Alice", "Blockchain Fundamentals", "2025-10-18")
+   ```
+
+---
+
+## 🧰 Developer Notes
+- Employer and certificate IDs must be **unique**.  
+- Uses mappings for efficient lookups and gas optimization.  
+- No external dependencies — fully written in Solidity.  
+- Recommended compiler: **v0.8.24 or newer**.
+
+---
+
+## 🧪 How to Deploy on Remix
+1. Open [Remix IDE](https://remix.ethereum.org/).  
+2. Create a new file named `Certification.sol`.  
+3. Paste the contract code into it.  
+4. Compile using **Solidity 0.8.24**.  
+5. Deploy the contract.  
+6. Use the “registerEmployer” and “addCertificate” functions to test functionality.
+
+---
+
+## 📜 License
+This project is licensed under the **MIT License**.
