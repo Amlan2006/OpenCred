@@ -13,7 +13,7 @@ Employers can register themselves on-chain, issue certificates to learners, and 
 
 ## 🧱 Built On
 **Network:** Flow EVM Testnet  
-**Contract Address:** `0xYourDeployedContractAddressHere`  
+**Contract Address:** `0x180a9b92653819d8B0e724AF3320Ffbe4b4170e8`  
 
 > Replace the address above with your deployed contract’s address once live on the Flow EVM Testnet.
 
